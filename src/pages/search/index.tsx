@@ -36,7 +36,7 @@ function Search() {
     if (!user?._id) {
       rehydrate();
     }
-  }, [])
+  }, []); /* eslint-disable-line */
 
   return (
     <main className={styles.page}>

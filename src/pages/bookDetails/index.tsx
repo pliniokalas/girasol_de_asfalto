@@ -14,10 +14,11 @@ function BookDetails() {
     return `${read}/${total} (${result}%)`
   }
 
+  // Find a book for the giver bookId in the url params.
   useEffect(() => {
     const aaa = user.books.find((b: IBook) => b._id === bookId);
     setBook(aaa);
-  });
+  }, [bookId, user.books]);
 
   if (!book?.volumeInfo) {
     return <h1>Loading...</h1>;
