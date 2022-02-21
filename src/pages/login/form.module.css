@@ -1,0 +1,38 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+}
+
+.form > *:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.form > label {
+  display: flex;
+  flex-direction: column;
+  font-size: x-small;
+}
+
+.form input {
+  padding: .5rem;
+
+  color: inherit;
+  border: none;
+  border-bottom: 1px solid var(--purp_med);
+  background-color: transparent;
+}
+
+.submit {
+  padding: .5rem 1rem;
+  margin-left: auto;
+
+  border-radius: .2rem;
+  font-weight: 700;
+  color: var(--very_dark);
+  background-color: var(--yell);
+
+  box-shadow: var(--shadow_dark_close); 
+}
+

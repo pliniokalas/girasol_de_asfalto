@@ -1,0 +1,9 @@
+.nav {
+  width: 100%;
+  padding: .5rem 0;
+  text-align: center;
+}
+
+.nav > *:not(:last-child) {
+  margin-right: .5rem;
+}

@@ -1,0 +1,52 @@
+.container {
+  width: 50%;
+  max-height: 80%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+
+  margin: auto;
+
+  background-color: var(--purp_dark);
+  border: 1px solid var(--purp_med);
+  border-radius: .2rem;
+  transform-origin: top;
+  animation: doubleGrow 400ms cubic-bezier(.86,0,.07,1) both;
+}
+
+.container > * {
+  animation: fadeIn 300ms 400ms ease-out both;
+}
+
+.container > *:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.container > h1 {
+  font-family: var(--title_sans);
+  color: var(--yell);
+  text-shadow: var(--shadow_dark_close);
+}
+
+.formMenu > button {
+  font-family: var(--title_sans);
+  color: var(--purp_light);
+  background-color: transparent;
+}
+
+button.active {
+  color: var(--yell_dark);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes doubleGrow {
+  0% { transform: scale(.1, .1); }
+  50% { transform: scale(1, .1); }
+  100% { transform: scale(1, 1); }
+}

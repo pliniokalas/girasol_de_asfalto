@@ -1,0 +1,39 @@
+.button {
+  --background: var(--purp_med);
+  --shadow: var(--yell_dark);
+
+  min-width: 2rem;
+  height: 2rem;
+
+  border-radius: 100%;
+  background-color: var(--background);
+}
+
+.button:after {
+  content: '';
+  display: block;
+
+  width: 1rem;
+  height: 1rem;
+
+  border-radius: 0.3rem;
+  background-color: var(--background);
+}
+
+.left {
+  margin-left: 1rem;
+  filter: drop-shadow(-.2rem .2rem 0 var(--shadow)); 
+}
+
+.left:after {
+  transform: translateX(-40%) rotate(45deg) skew(-20deg, -20deg);
+}
+
+.right {
+  margin-right: 1rem;
+  filter: drop-shadow(.2rem .2rem 0 var(--shadow)); 
+}
+
+.right:after {
+  transform: translateX(100%) rotate(45deg) skew(-20deg, -20deg);
+}

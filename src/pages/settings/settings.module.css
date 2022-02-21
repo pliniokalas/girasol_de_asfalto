@@ -1,0 +1,32 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  margin: auto;
+  padding: 1rem;
+}
+
+.page > * {
+  margin: 0;
+  margin-bottom: 1rem;
+}
+
+.page > img {
+  width: 10rem;
+  height: 10rem;
+  border: 1px solid var(--purp_med);
+  border-radius: .1rem;
+  background-color: var(--purp_dark);
+}
+
+.page > h1 {
+  text-shadow: -.2rem .2rem 0 var(--purp_dark);
+}
+
+.logoutBtn {
+  padding: .5rem 1rem;
+  border-radius: .1rem;
+  color: var(--very_dark);
+  font-weight: 700;
+  background-color: var(--ketchup);
+}
