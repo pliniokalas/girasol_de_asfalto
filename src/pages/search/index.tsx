@@ -24,7 +24,7 @@ function Search() {
 
   async function handleAddBook(book: any) {
     try {
-      const resp = await axios.post(`/api/users/${user._id}/books`, { books: [book] });
+      const resp = await axios.post('/api/users/books', { books: [book] });
       console.log(resp);
     } catch (error) {
       console.error(error);
