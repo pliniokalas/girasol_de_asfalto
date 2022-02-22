@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'utils/axios';
+import axios, { searchBooks } from 'utils/axios';
 import { useSession } from 'utils/useSession';
 import BalloonBtn from 'components/balloonBtn';
 import styles from './search.module.css';
@@ -17,7 +17,7 @@ function Search() {
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    const resp = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=${search}`);
+    const resp = await searchBooks(search);
     setResults(resp.data.items);
     setCover(resp.data.items[0]);
   }

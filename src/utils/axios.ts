@@ -15,4 +15,17 @@ axios.interceptors.request.use(function (config) {
   return config;
 });
 
+async function searchBooks(search: string) {
+  return await axios({
+    method: 'get',
+    baseURL: '',
+    url: 'https://www.googleapis.com/books/v1/volumes',
+    params: {
+      q: search,
+      token: process.env.GAPI_KEY,
+    }
+  });
+}
+
 export default axios;
+export { searchBooks };
