@@ -14,6 +14,7 @@
 .page > img {
   width: 10rem;
   height: 10rem;
+  object-fit: cover;
   border: 1px solid var(--purp_med);
   border-radius: .1rem;
   background-color: var(--purp_dark);

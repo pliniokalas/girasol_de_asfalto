@@ -26,7 +26,7 @@ function Shelf() {
       <section className={styles.cover} key={cover.id}>
         <img src={cover?.volumeInfo.imageLinks?.thumbnail} alt='' />
 
-        <menu>
+        <menu className={styles.bookActions}>
           <BalloonBtn
             side='left'
             onClick={bookDetails}
@@ -71,11 +71,11 @@ function Shelf() {
         </header>
 
         <ul className={styles.books}>
-          {!!user.books.length && user.books.map((book: IBook) => (
+          {!!user.books.length ? user.books.map((book: IBook) => (
             <li key={book.id}>
               <button
                 onClick={() => setCover(book)}
-                className={cover.id === book.id ? styles.selected : ''}
+                className={cover?.id === book.id ? styles.selected : ''}
                 style={{ '--heft': (book.volumeInfo?.pageCount || 10)/10} as React.CSSProperties}
               >
                 <div className={styles.spine}>
@@ -85,6 +85,8 @@ function Shelf() {
               </button>
             </li>
           ))
+
+          : <li className={styles.empty}>Add books in the search page so they show up here.</li>
           }
         </ul>
       </section>

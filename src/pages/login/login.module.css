@@ -1,6 +1,6 @@
 .container {
-  width: 50%;
-  max-height: 80%;
+  flex: unset;
+  aspect-ratio: 1 / 2;
 
   display: flex;
   flex-direction: column;
@@ -8,6 +8,7 @@
   align-items: center;
 
   margin: auto;
+  padding: 2rem 4rem;
 
   background-color: var(--purp_dark);
   border: 1px solid var(--purp_med);

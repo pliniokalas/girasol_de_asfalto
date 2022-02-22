@@ -9,15 +9,15 @@
 .cover {
   flex: 1;
   max-width: min(500px, 40%);
-  height: max-content;
-  max-height: 750px;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   margin-right: 1rem;
   padding: 2rem;
   box-sizing: border-box;
 
+  position: relative;
   border-radius: .3rem;
   color: var(--very_dark);
   background-color: var(--yell);
@@ -30,7 +30,6 @@
 }
 
 .cover > img {
-  width: 15vw;
   min-height: 20vw;
   margin: 0 auto;
   margin-bottom: 1rem;
@@ -56,6 +55,16 @@
 
 .shortDesc h3 {
   color: var(--yell);
+}
+
+.bookActions {
+  position: absolute;
+  right: 1rem;
+}
+
+.bookActions button {
+  height: 3rem;
+  aspect-ratio: 1/1;
 }
 
 /* ----------------------------------------------------------------------------------- */
@@ -159,6 +168,12 @@
 
 .spine > p {
   opacity: 0.7;
+}
+
+.empty {
+  text-align: center;
+  color: var(--purp_light);
+  font-style: italic;
 }
 
 @keyframes fadeIn {
