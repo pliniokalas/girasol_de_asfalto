@@ -23,22 +23,24 @@ function Shelf() {
 
   return (
     <main className={styles.page}>
-      <section className={styles.cover} key={cover.id}>
-        <img src={cover?.volumeInfo.imageLinks?.thumbnail} alt='' />
+      {cover && (
+        <section className={styles.cover} key={cover?.id}>
+          <img src={cover?.volumeInfo.imageLinks?.thumbnail} alt='' />
 
-        <menu className={styles.bookActions}>
-          <BalloonBtn
-            side='left'
-            onClick={bookDetails}
-          />
-        </menu>
+          <menu className={styles.bookActions}>
+            <BalloonBtn
+              side='left'
+              onClick={bookDetails}
+            />
+          </menu>
 
-        <div className={styles.shortDesc}>
-          <h3>{cover?.volumeInfo.title}</h3>
-          <p>Authors: {cover?.volumeInfo.authors?.join(', ')}</p>
-          <p>Pages: {cover?.volumeInfo.pageCount}</p>
-        </div>
-      </section>
+          <div className={styles.shortDesc}>
+            <h3>{cover?.volumeInfo.title}</h3>
+            <p>Authors: {cover?.volumeInfo.authors?.join(', ')}</p>
+            <p>Pages: {cover?.volumeInfo.pageCount}</p>
+          </div>
+        </section>
+      )}
 
       <section className={styles.shelf}>
         <ul className={styles.listSelector}>
