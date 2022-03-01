@@ -31,6 +31,7 @@
 
 .cover > img {
   min-height: 20vw;
+  min-width: 10vw;
   margin: 0 auto;
   margin-bottom: 1rem;
 
