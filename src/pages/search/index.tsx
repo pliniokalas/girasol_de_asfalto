@@ -1,15 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import axios, { searchBooks } from 'utils/axios';
 import { useSession } from 'utils/useSession';
 import { IBook } from 'utils/interfaces';
+import Spinner from 'components/spinner';
 import { ReactComponent as PlusIcon } from 'assets/plus-circle.svg';
 import { ReactComponent as CheckIcon } from 'assets/check.svg';
 import magIcon from 'assets/mag.svg';
 import styles from './search.module.css';
 
 function Search() {
+  const [query, setQuery] = useSearchParams(); 
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([] as any);
+  const [isLoading, setIsLoading] = useState(true);
   const { user, rehydrate } = useSession();
 
   function handleChange(e: React.SyntheticEvent) {
@@ -19,8 +23,7 @@ function Search() {
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    const resp = await searchBooks(search);
-    setResults(resp.data.items);
+    setQuery(`q=${search}`);
   }
 
   async function handleAddBook(book: any) {
@@ -30,6 +33,24 @@ function Search() {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  // Search by url query params.
+  useEffect(() => {
+    const searchQuery = query.get('q');
+
+    if (searchQuery) {
+      searchBooks(searchQuery)
+        .then((resp) => setResults(resp.data.items))
+        .catch(error => console.error(error))
+        .finally(() => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />
   }
 
   return (
