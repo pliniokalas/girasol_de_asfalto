@@ -66,13 +66,15 @@ function Search() {
               <header>
                 <h3>{cover?.volumeInfo.title}</h3>
 
-                <BalloonBtn
-                  onClick={() => handleAddBook(cover)}
-                  className={styles.addBtn}
-                  side='left'
-                >
-                  <img src={plusIcon} alt='' />
-                </BalloonBtn>
+                {!user?.books?.find((b: IBook) => b.id === cover?.id)
+                  && (
+                    <BalloonBtn
+                      onClick={() => handleAddBook(cover)}
+                      className={styles.addBtn}
+                      side='left'
+                    >
+                      <img src={plusIcon} alt='' />
+                    </BalloonBtn> )}
               </header>
 
               <article className={styles.desc}>
