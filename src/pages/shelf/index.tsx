@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSession } from 'utils/useSession';
 import { IBook, IList } from 'utils/interfaces';
 import BalloonBtn from 'components/balloonBtn';
+import descIcon from 'assets/desc.svg';
+import hamIcon from 'assets/ham.svg';
 import styles from './shelf.module.css';
 
 function Shelf() {
@@ -31,7 +33,9 @@ function Shelf() {
             <BalloonBtn
               side='left'
               onClick={bookDetails}
-            />
+            >
+              <img src={descIcon} alt='' />
+            </BalloonBtn>
           </menu>
 
           <div className={styles.shortDesc}>
@@ -67,7 +71,9 @@ function Shelf() {
           <BalloonBtn
             onClick={() => {}}
             side='right'
-          />
+          >
+            <img src={hamIcon} alt='' />
+          </BalloonBtn>
 
           <h1>{list.title}</h1>
         </header>

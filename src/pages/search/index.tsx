@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios, { searchBooks } from 'utils/axios';
 import { useSession } from 'utils/useSession';
 import BalloonBtn from 'components/balloonBtn';
+import plusIcon from 'assets/plus.svg';
 import styles from './search.module.css';
 
 function Search() {
@@ -67,7 +68,9 @@ function Search() {
                   onClick={() => handleAddBook(cover)}
                   className={styles.addBtn}
                   side='left'
-                />
+                >
+                  <img src={plusIcon} alt='' />
+                </BalloonBtn>
               </header>
 
               <article className={styles.desc}>
