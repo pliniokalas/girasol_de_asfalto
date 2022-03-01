@@ -1,16 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios, { searchBooks } from 'utils/axios';
 import { useSession } from 'utils/useSession';
 import { IBook } from 'utils/interfaces';
-import BalloonBtn from 'components/balloonBtn';
-import plusIcon from 'assets/plus.svg';
+import { ReactComponent as PlusIcon } from 'assets/plus-circle.svg';
 import { ReactComponent as CheckIcon } from 'assets/check.svg';
+import magIcon from 'assets/mag.svg';
 import styles from './search.module.css';
 
 function Search() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([] as any);
-  const [cover, setCover] = useState({} as any);
   const { user, rehydrate } = useSession();
 
   function handleChange(e: React.SyntheticEvent) {
@@ -22,7 +21,6 @@ function Search() {
     e.preventDefault();
     const resp = await searchBooks(search);
     setResults(resp.data.items);
-    setCover(resp.data.items[0]);
   }
 
   async function handleAddBook(book: any) {
@@ -34,13 +32,6 @@ function Search() {
     }
   }
 
-  // Try to login in case the user object was lost.
-  useEffect(() => {
-    if (!user?._id) {
-      rehydrate();
-    }
-  }, []); /* eslint-disable-line */
-
   return (
     <main className={styles.page}>
       <form
@@ -49,63 +40,60 @@ function Search() {
       >
         <label className={styles.searchLabel}>
           Search
-          <input
-            type='text'
-            value={search}
-            onChange={handleChange}
-          />
+          <div className={styles.searchContainer}>
+            <input
+              type='text'
+              value={search}
+              onChange={handleChange}
+            />
+            <img src={magIcon} alt='' />
+          </div>
         </label>
       </form>
 
-      <section className={styles.resultsContainer + (!results.length ? styles.hidden : '')}>
-        {cover.volumeInfo 
-          && (
-            <div className={styles.cover} key={cover.id}>
-              <img src={cover?.volumeInfo?.imageLinks?.thumbnail} alt='' />
+      {!!results.length &&
+      <ul className={styles.resultsContainer}>
+        {results.map((r: IBook) => (
+          <li className={styles.resultBook} key={JSON.stringify(r)}>
+            <img src={r.volumeInfo.imageLinks?.thumbnail} alt='' />
 
-              <header>
-                <h3>{cover?.volumeInfo.title}</h3>
+            <section>
+              <header className={styles.header}>
+                <h3>{r.volumeInfo.title}</h3>
 
-                {!user?.books?.find((b: IBook) => b.id === cover?.id)
-                  && (
-                    <BalloonBtn
-                      onClick={() => handleAddBook(cover)}
-                      className={styles.addBtn}
-                      side='left'
+                {!user?.books?.find((b: IBook) => b.id === r.id) 
+                  ? (
+                    <button
+                      onClick={() => handleAddBook(r)}
+                      className={`${styles.headerBtn} ${styles.addBtn}`}
                     >
-                      <img src={plusIcon} alt='' />
-                    </BalloonBtn> )}
+                      Add book
+                      <PlusIcon aria-label='Add book' />
+                    </button>
+                  ) : (
+                    <div className={`${styles.headerBtn} ${styles.owned}`}>
+                      On the shelf
+                      <CheckIcon aria-label='Already in shelf.' />
+                    </div>
+                  )}
+
+                <p>By {r.volumeInfo.authors?.join(', ')}</p>
               </header>
 
-              <article className={styles.desc}>
-                <p>By {cover?.volumeInfo.authors?.join(', ')}</p>
-                <p>{cover?.volumeInfo.description}</p>
+              <details className={styles.desc}>
+                <p>{r.volumeInfo.description}</p>
                 <br /> 
                 <p>
-                  {`Publisher: ${cover?.volumeInfo.publisher}\n`
-                    + `${cover?.volumeInfo.pageCount} pages\n`
-                    + `Language: ${cover?.volumeInfo.language}`
+                  {`Publisher: ${r.volumeInfo.publisher}\n`
+                    + `${r.volumeInfo.pageCount} pages\n`
+                    + `Language: ${r.volumeInfo.language}`
                   }
                 </p>
-              </article>
-            </div>
-          )}
-
-        <ul className={styles.results}>
-          {!!results.length && results.map((r: IBook) => (
-            <li key={JSON.stringify(r)}>
-              <button
-                onClick={() => setCover(r)}
-                className={`${styles.resultBook} ${cover.id === r.id ? styles.selected : ''}`}
-              >
-                <span>{r.volumeInfo.title}</span>
-                {user?.books?.find((b: IBook) => b.id === r.id)
-                  && <CheckIcon aria-label='Already in shelf.' />}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
+              </details>
+            </section>
+          </li>
+        ))}
+      </ul>}
     </main>
   );
 }
