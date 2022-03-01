@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Routes,
   Route,
@@ -12,16 +12,24 @@ import Search from 'pages/search';
 import Shelf from 'pages/shelf';
 import Settings from 'pages/settings';
 import BookDetails from 'pages/bookDetails';
+import Spinner from 'components/spinner';
 
 /* ----------------------------------------------------------------------------------- */
 
 function Private({ element }: any) {
   const location = useLocation();
   const { user, rehydrate } = useSession();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    rehydrate();
+    rehydrate()
+      .catch((error: any) => console.error(error))
+      .finally(() => setIsLoading(false));
   }, []); /* eslint-disable-line react-hooks/exhaustive-deps */
+
+  if (isLoading) {
+    return <Spinner /> 
+  }
 
   // Not authenticated.
   if (!user?._id) {
