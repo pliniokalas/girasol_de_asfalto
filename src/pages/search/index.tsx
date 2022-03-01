@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios, { searchBooks } from 'utils/axios';
 import { useSession } from 'utils/useSession';
+import { IBook } from 'utils/interfaces';
 import BalloonBtn from 'components/balloonBtn';
 import plusIcon from 'assets/plus.svg';
+import { ReactComponent as CheckIcon } from 'assets/check.svg';
 import styles from './search.module.css';
 
 function Search() {
@@ -25,8 +27,8 @@ function Search() {
 
   async function handleAddBook(book: any) {
     try {
-      const resp = await axios.post('/api/users/books', { books: [book] });
-      console.log(resp);
+      await axios.post('/api/users/books', { books: [book] });
+      await rehydrate();
     } catch (error) {
       console.error(error);
     }
@@ -88,13 +90,15 @@ function Search() {
           )}
 
         <ul className={styles.results}>
-          {!!results.length && results.map((r: any) => (
+          {!!results.length && results.map((r: IBook) => (
             <li key={JSON.stringify(r)}>
               <button
                 onClick={() => setCover(r)}
-                className={cover.id === r.id ? styles.selected : ''}
+                className={`${styles.resultBook} ${cover.id === r.id ? styles.selected : ''}`}
               >
                 <span>{r.volumeInfo.title}</span>
+                {user?.books?.find((b: IBook) => b.id === r.id)
+                  && <CheckIcon aria-label='Already in shelf.' />}
               </button>
             </li>
           ))}

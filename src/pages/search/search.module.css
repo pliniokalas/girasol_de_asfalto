@@ -127,7 +127,9 @@ button.addBtn {
   margin-bottom: 1rem;
 }
 
-.results button {
+.resultBook {
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 1rem;
 
@@ -138,6 +140,18 @@ button.addBtn {
   color: inherit;
   background-color: var(--purp_dark);
   text-shadow: -.2rem .2rem 0 var(--very_dark);
+}
+
+.resultBook > svg {
+  height: 2rem;
+  aspect-ratio: 1/1;
+  margin-left: 1rem;
+  animation: rotate 500ms cubic-bezier(.18,.89,.32,1.28) both,
+    fadeIn 200ms ease-out both;
+}
+
+.resultBook > svg > path {
+  fill: var(--very_dark);
 }
 
 .results .selected {
@@ -156,3 +170,7 @@ button.addBtn {
   to { transform: scaleX(1); }
 }
 
+@keyframes rotate {
+  from { transform: rotate(-180deg); }
+  to { transform: rotate(0deg); }
+}
