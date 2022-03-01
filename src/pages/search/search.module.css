@@ -105,6 +105,7 @@
 button.addBtn {
   --background: var(--very_dark);
   --shadow: var(--yell_dark);
+  flex-shrink: 0;
 }
 
 .desc {
