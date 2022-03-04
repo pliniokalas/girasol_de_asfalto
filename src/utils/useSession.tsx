@@ -12,6 +12,7 @@ function SessionContextProvider(props: any) {
   async function rehydrate() {
     const resp = await axios.get('/api/users');
     setUser(resp.data);
+    return resp.data;
   }
 
   async function login(email: string, password: string) {
