@@ -37,17 +37,23 @@ function Search() {
 
   // Search by url query params.
   useEffect(() => {
-    const searchQuery = query.get('q');
+    (async () => {
+      try {
+        setIsLoading(true);
+        const searchQuery = query.get('q');
 
-    if (searchQuery) {
-      searchBooks(searchQuery)
-        .then((resp) => setResults(resp.data.items))
-        .catch(error => console.error(error))
-        .finally(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
+        if (searchQuery) {
+          const resp = await searchBooks(searchQuery)
+          setResults(resp.data.items || []);
+          setSearch(searchQuery);
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [query]);
 
   if (isLoading) {
     return <Spinner />
