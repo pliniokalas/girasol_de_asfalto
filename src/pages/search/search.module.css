@@ -76,7 +76,7 @@
     fromBelow 200ms ease-out both;
 }
 
-.resultsContainer > *:not(:last-child) {
+.resultsContainer > * {
   margin-bottom: 1rem;
 }
 
