@@ -4,7 +4,7 @@
 
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
 
   margin: auto;
@@ -39,6 +39,20 @@
 
 button.active {
   color: var(--yell_dark);
+}
+
+.demoBtn {
+  margin-top: 1rem;
+  padding: .2rem .5rem;
+  font-style: italic;
+  color: var(--yell_dark);
+  background-color: transparent;
+}
+
+.demoBtn:hover {
+  outline: 2px dashed var(--yell_dark);
+  border-radius: 1rem;
+  outline-offset: .3rem;
 }
 
 @keyframes fadeIn {
