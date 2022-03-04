@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from 'utils/useSession';
 import { IBook, IList } from 'utils/interfaces';
+import axios from 'utils/axios';
 import BalloonBtn from 'components/balloonBtn';
 import descIcon from 'assets/desc.svg';
 import hamIcon from 'assets/ham.svg';
+import xIcon from 'assets/x.svg';
 import styles from './shelf.module.css';
 
 function Shelf() {
-  const { user } = useSession();
+  const { user, rehydrate } = useSession();
   const navigate = useNavigate();
   const [cover, setCover] = useState(user.books[0] as IBook);
   const defaultList = { _id: 'default', title: 'All your books', books: user.books };
@@ -23,6 +25,14 @@ function Shelf() {
     navigate(`/book/${cover._id}`)
   }
 
+  async function removeBook(bookId: string) {
+    if (confirm('Are you sure?')) { /* eslint-disable-line */
+      await axios.delete(`/api/users/books/${bookId}`);
+      const freshUser = await rehydrate();
+      setCover(freshUser.books[0]);
+    }
+  }
+
   return (
     <main className={styles.page}>
       {cover && (
@@ -32,7 +42,17 @@ function Shelf() {
           <menu className={styles.bookActions}>
             <BalloonBtn
               side='left'
+              onClick={() => removeBook(cover._id)}
+              title='Remove from list'
+              className={styles.removeBtn}
+            >
+              <img src={xIcon} alt='' />
+            </BalloonBtn>
+
+            <BalloonBtn
+              side='left'
               onClick={bookDetails}
+              title='Book details'
             >
               <img src={descIcon} alt='' />
             </BalloonBtn>

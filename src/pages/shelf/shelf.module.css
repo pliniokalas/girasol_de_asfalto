@@ -63,8 +63,16 @@
   right: 1rem;
 }
 
+.bookActions > *:not(:last-child) {
+  margin-bottom: .5rem;
+}
+
 .bookActions button {
   height: 3rem;
+}
+
+.removeBtn {
+  --background: var(--ketchup);
 }
 
 
