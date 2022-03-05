@@ -77,7 +77,7 @@ function Shelf() {
           </li>
 
           {user.lists.map((l: IList) => (
-            <li>
+            <li key={l._id}>
               <button
                 onClick={() => selectList(l)}
                 className={list._id === l._id ? styles.activeList : ''}
