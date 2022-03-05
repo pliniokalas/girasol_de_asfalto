@@ -5,6 +5,7 @@ function NavBar() {
   return (
     <nav className={styles.nav}>
       <Link to='/shelf'>Shelf</Link>
+      <Link to='/lists'>Lists</Link>
       <Link to='/stats'>Stats</Link>
       <Link to='/search'>Search</Link>
       <Link to='/settings'>Settings</Link>

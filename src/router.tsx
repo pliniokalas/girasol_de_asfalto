@@ -12,6 +12,7 @@ import Search from 'pages/search';
 import Shelf from 'pages/shelf';
 import Settings from 'pages/settings';
 import BookDetails from 'pages/bookDetails';
+import ManageLists from 'pages/manageLists';
 import Spinner from 'components/spinner';
 
 /* ----------------------------------------------------------------------------------- */
@@ -65,6 +66,10 @@ function AppRoutes() {
 
       <Route path='/book/:bookId' element={
         <Private element={<BookDetails />} /> }
+      />
+
+      <Route path='/lists/' element={
+        <Private element={<ManageLists />} /> }
       />
     </Routes>
   );
