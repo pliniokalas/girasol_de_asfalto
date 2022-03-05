@@ -1,0 +1,214 @@
+.page {
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.page > * {
+  margin-bottom: 2rem;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.listActions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.listActions > *:not(:last-child) {
+  margin-right: .5rem;
+}
+
+.listActions > button {
+  display: flex;
+  align-items: center;
+  padding: .5rem;
+  border-radius: .5rem;
+  font-weight: 700;
+  color: var(--clear_purp);
+  background-color: transparent; 
+}
+
+.listActions > button:is(:hover, :focus, :focus-visible) {
+  background-color: var(--purp_dark);
+}
+
+.listActions > button > * {
+  height: 1rem;
+  width: 1rem;
+  margin-left: .3rem;
+}
+
+.listActionIcon > path {
+  fill: currentColor;
+}
+
+.listActions > .remBtn {
+  color: var(--ketchup);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.listSelector {
+  display: flex;
+  justify-content: center;
+}
+
+.listSelector > *:not(:last-child) {
+  margin-right: .5rem;
+}
+
+.listSelector button {
+  width: .7rem;
+  height: .7rem;
+  padding: 0;
+  border: none;
+  border-radius: 100%;
+  background-color: var(--purp_med);
+  transition: background-color cubic-bezier(.17,.84,.44,1) 500ms;
+  animation: slideFromRight ease-out 200ms both,
+    fadeIn ease 200ms both;
+  animation-delay: calc(var(--i) * 100ms);
+}
+
+.listSelector button.activeList {
+  background-color: var(--yell);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.listHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.listHeader > label {
+  font-weight: 700;
+  font-size: small;
+}
+
+.listHeader > input {
+  padding: 0;
+
+  text-align: center;
+  font-family: var(--title_sans);
+  font-size: 2rem;
+  color: var(--yell);
+  text-shadow: -.2rem .2rem 0 var(--purp_med);
+
+  border: none;
+  border-bottom: 2px solid var(--clear_purp);
+  background-color: transparent;
+}
+
+.listHeader > input:is(:focus, :focus-visible) {
+  border-radius: .5rem;
+  outline: 2px solid var(--clear_purp);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.books {
+  max-width: 70%;
+  flex: 1;
+  margin: auto;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+}
+
+.books > * {
+  margin-bottom: .5rem;
+}
+
+.books button {
+  min-height: var(--heft); 
+  width: 100%;
+  padding: .5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+
+  color: inherit;
+
+  border-radius: 1rem .2rem .2rem .2rem;
+  background-color: var(--purp_dark);
+  transition: transform ease-out 100ms;
+}
+
+.books button:after {
+  content: '';
+  display: block;
+  flex: 1;
+  max-width: 40%;
+  min-width: 1rem;
+  margin-left: 2rem;
+  margin-right: -1rem; /* Size of the padding of button. */
+
+  border-radius: .7rem 0 0 .2rem;
+  background-color: var(--very_dark);
+}
+
+.books button.selected {
+  transform: translateX(-2rem);
+  background-color: var(--purp_med);
+}
+
+.spine > * {
+  margin: 0;
+  margin-right: auto;
+  text-align: left;
+}
+
+.spine > p {
+  opacity: 0.7;
+}
+
+.empty {
+  text-align: center;
+  color: var(--purp_light);
+  font-style: italic;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.saveBtn {
+  position: fixed;
+  top: 2rem;
+  right: 2rem; 
+
+  padding: .5rem 1rem;
+  border: 2px solid var(--yell_dark);
+  border-radius: .5rem;
+  font-weight: 700;
+  color: var(--very_dark);
+  background-color: var(--yell);
+  animation: pulseShadow linear 500ms alternate infinite;
+}
+
+.saveBtn:is(:hover, :focus, :focus-visible) {
+  animation-play-state: paused;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+@keyframes pulseShadow {
+  from { 
+    transform: translate(0, 0);
+    filter: drop-shadow(0 0 0 var(--yell_dark));
+  }
+  to {
+    transform: translate(0, -.3rem);
+    filter: drop-shadow(0 .3rem 0 var(--yell_dark));
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(1rem); }
+  to { transform: translateX(0rem); }
+}
