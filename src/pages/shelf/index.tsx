@@ -12,9 +12,15 @@ import styles from './shelf.module.css';
 function Shelf() {
   const { user, rehydrate } = useSession();
   const navigate = useNavigate();
-  const [cover, setCover] = useState(user.books[0] as IBook);
-  const defaultList = { _id: 'default', title: 'All your books', books: user.books };
+
+  const defaultList = {
+    _id: 'default',
+    title: 'All your books',
+    books: user.books.map((b: IBook) => b._id)
+  };
+
   const [list, setList] = useState(defaultList);
+  const [cover, setCover] = useState(user.books[0] as IBook);
 
   function selectList(l: IList) {
     const books = user.books.filter((b: IBook) => l.books.includes(b._id));
@@ -31,6 +37,11 @@ function Shelf() {
       const freshUser = await rehydrate();
       setCover(freshUser.books[0]);
     }
+  }
+
+  // Returns a list of IBooks in the current list.
+  function getBooksOfList() {
+    return user.books.filter((b: IBook) => list.books.includes(b._id))
   }
 
   return (
@@ -99,7 +110,7 @@ function Shelf() {
         </header>
 
         <ul className={styles.books}>
-          {!!user.books.length ? user.books.map((book: IBook) => (
+          {!!user.books.length ? getBooksOfList().map((book: IBook) => (
             <li key={book.id}>
               <button
                 onClick={() => setCover(book)}
