@@ -1,17 +1,25 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSession } from 'utils/useSession';
 import { IBook, IList } from 'utils/interfaces';
 import axios from 'utils/axios';
-import BalloonBtn from 'components/balloonBtn';
+import Beads from 'components/beads';
+import Details from './details';
+import Stats from './stats';
+import List from './list';
+import { ReactComponent as XIcon } from 'assets/x.svg';
+import bookIcon from 'assets/book.svg';
+import pieIcon from 'assets/pie.svg';
 import descIcon from 'assets/desc.svg';
-import hamIcon from 'assets/ham.svg';
-import xIcon from 'assets/x.svg';
 import styles from './shelf.module.css';
+
+const TABS = {
+  cover: 'cover',
+  details: 'details',
+  stats: 'stats',
+};
 
 function Shelf() {
   const { user, rehydrate } = useSession();
-  const navigate = useNavigate();
 
   const defaultList = {
     _id: 'default',
@@ -19,16 +27,13 @@ function Shelf() {
     books: user.books.map((b: IBook) => b._id)
   };
 
+  const [tab, setTab] = useState('cover');
   const [list, setList] = useState(defaultList);
   const [cover, setCover] = useState(user.books[0] as IBook);
 
   function selectList(l: IList) {
     const books = user.books.filter((b: IBook) => l.books.includes(b._id));
     setList({ ...l, ...books });
-  }
-
-  function bookDetails() {
-    navigate(`/book/${cover._id}`)
   }
 
   async function removeBook(bookId: string) {
@@ -39,95 +44,71 @@ function Shelf() {
     }
   }
 
-  // Returns a list of IBooks in the current list.
-  function getBooksOfList() {
-    return user.books.filter((b: IBook) => list.books.includes(b._id))
-  }
-
   return (
     <main className={styles.page}>
-      {cover && (
-        <section className={styles.cover} key={cover?.id}>
-          <img src={cover?.volumeInfo.imageLinks?.thumbnail} alt='' />
+      {/* Left panel */}
+      <section className={styles.leftPanel}>
+        <article className={styles.dossier}>
+          {cover 
+            && <header>
+              <h3>{cover.volumeInfo.title}</h3>
+              <p>{cover.volumeInfo.authors?.join(', ')}</p>
+            </header>
+          }
 
           <menu className={styles.bookActions}>
-            <BalloonBtn
-              side='left'
+            <button
               onClick={() => removeBook(cover._id)}
               title='Remove from list'
               className={styles.removeBtn}
             >
-              <img src={xIcon} alt='' />
-            </BalloonBtn>
-
-            <BalloonBtn
-              side='left'
-              onClick={bookDetails}
-              title='Book details'
-            >
-              <img src={descIcon} alt='' />
-            </BalloonBtn>
+              Remove
+              <XIcon />
+            </button>
           </menu>
 
-          <div className={styles.shortDesc}>
-            <h3>{cover?.volumeInfo.title}</h3>
-            <p>Authors: {cover?.volumeInfo.authors?.join(', ')}</p>
-            <p>Pages: {cover?.volumeInfo.pageCount}</p>
-          </div>
-        </section>
-      )}
-
-      <section className={styles.shelf}>
-        <ul className={styles.listSelector}>
-          <li>
-            <button
-              onClick={() => selectList(defaultList)}
-              className={list._id === 'default' ? styles.activeList : ''}
-            >
-            </button>
-          </li>
-
-          {user.lists.map((l: IList) => (
-            <li key={l._id}>
-              <button
-                onClick={() => selectList(l)}
-                className={list._id === l._id ? styles.activeList : ''}
-              >
-              </button>
-            </li> ))
+          {cover && (tab === TABS.cover)
+            && <img src={cover.volumeInfo.imageLinks?.thumbnail} alt='' />
           }
-        </ul>
 
-        <header className={styles.listHeader}>
-          <BalloonBtn
-            onClick={() => {}}
-            side='right'
+          {cover && (tab === TABS.details)
+              && <Details cover={cover} />
+          }
+
+          {cover && (tab === TABS.stats)
+              && <Stats />
+          }
+        </article>
+
+        <menu className={styles.tabMenu}>
+          <button
+            aria-label='Cover'
+            className={tab === TABS.cover ? styles.active : ''}
+            onClick={() => setTab(TABS.cover)}
           >
-            <img src={hamIcon} alt='' />
-          </BalloonBtn>
+            <img src={bookIcon} alt='' />
+          </button>
+          <button
+            aria-label='Details'
+            className={tab === TABS.details ? styles.active : ''}
+            onClick={() => setTab(TABS.details)}
+          >
+            <img src={descIcon} alt='' />
+          </button>
+          <button
+            aria-label='Stats'
+            className={tab === TABS.stats ? styles.active : ''}
+            onClick={() => setTab(TABS.stats)}
+          >
+            <img src={pieIcon} alt='' />
+          </button>
+        </menu>
+      </section>
 
-          <h1>{list.title}</h1>
-        </header>
-
-        <ul className={styles.books}>
-          {!!user.books.length ? getBooksOfList().map((book: IBook) => (
-            <li key={book.id}>
-              <button
-                onClick={() => setCover(book)}
-                className={cover?.id === book.id ? styles.selected : ''}
-                style={{ '--heft': (book.volumeInfo?.pageCount || 10)/10} as React.CSSProperties}
-              >
-                <div className={styles.spine}>
-                  <h1>{book.volumeInfo.title}</h1>
-                  <p>{book.volumeInfo.authors?.join(', ')}</p>
-                </div>
-              </button>
-            </li>
-          ))
-
-          : <li className={styles.empty}>Add books in the search page so they show up here.</li>
-          }
-        </ul>
+      {/* Right panel */}
+      <section className={styles.rightPanel}>
+        <Beads starter={defaultList} items={user.lists} active={list} select={selectList} />
+        <List list={list} allBooks={user.books} selectBook={setCover} />
       </section>
     </main>
   );

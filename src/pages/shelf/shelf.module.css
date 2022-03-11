@@ -1,189 +1,144 @@
 .page {
   display: flex;
-  padding: 1rem;
-  justify-content: space-evenly;
+}
+
+.page > *:not(:last-child) {
+  margin-right: 3rem;
 }
 
 /* ----------------------------------------------------------------------------------- */
 
-.cover {
+.leftPanel {
   flex: 1;
-  max-width: min(500px, 40%);
+  max-width: 45%; 
+  display: flex;
+}
 
+/* ----------------------------------------------------------------------------------- */
+
+.dossier {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  margin-right: 1rem;
-  padding: 2rem;
-  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  
+  overflow-y: auto;
 
-  position: relative;
-  border-radius: .3rem;
-  color: var(--very_dark);
-  background-color: var(--yell);
-  transform-origin: top;
-  animation: doubleGrow 400ms cubic-bezier(.86,0,.07,1) both;
+  background-color: var(--purp_med);
 }
 
-.cover > * {
-  animation: fadeIn 300ms ease-out 400ms both;
+.dossier > * {
+  animation: fadeIn ease-out 200ms forwards;
 }
 
-.cover > img {
-  min-height: 20vw;
-  min-width: 10vw;
-  margin: 0 auto;
+/* ----------------------------------------------------------------------------------- */
+
+.dossier > .bookActions {
+  padding: 1rem;
   margin-bottom: 1rem;
+}
 
-  border: .5rem solid var(--purp_med);
+.bookActions > button {
+  font-size: .7rem; 
+  display: flex;
+  align-items: center;
+  padding: .5em;
+
   border-radius: .5rem;
-  box-shadow: -.5rem .5rem 0 var(--yell_dark);
-  background-color: var(--very_dark);
-}
-
-.shortDesc {
-  padding: .5rem;
-
+  font-weight: 700;
   color: var(--clear_purp);
-  border: 3px solid var(--yell_dark);
-  border-radius: .3rem;
-  background-color: var(--very_dark);
+  background-color: transparent;
 }
 
-.shortDesc > * {
+.bookActions > button:hover {
+  background-color: rgba(0,0,0,0.2); 
+}
+
+.bookActions > button > svg {
+  height: 1.3em;
+  width: 1.3em;
+  margin-left: .5em;
+}
+
+.bookActions > button > svg > path {
+  fill: currentColor;
+}
+
+button.removeBtn {
+  color: var(--ketchup);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.dossier > header {
+  text-align: center;
+}
+
+.dossier > header > * {
   margin: 0;
 }
 
-.shortDesc h3 {
-  color: var(--yell);
+.dossier > header > h3 {
+  font-family: var(--title_sans);
+  font-size: 2rem;
+  color: var(--clear_purp);
 }
-
-.bookActions {
-  position: absolute;
-  right: 1rem;
-}
-
-.bookActions > *:not(:last-child) {
-  margin-bottom: .5rem;
-}
-
-.bookActions button {
-  height: 3rem;
-}
-
-.removeBtn {
-  --background: var(--ketchup);
-}
-
 
 /* ----------------------------------------------------------------------------------- */
 
-.shelf {
+/* cover */
+.dossier > img {
+  min-height: 20vw;
+  max-height: 75%;
+  min-width: 10vw;
+  margin: 0 auto;
+
+  border: .7rem solid var(--purp_light);
+  border-radius: .5rem;
+  background-color: var(--very_dark);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.tabMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabMenu > *:not(:last-child) {
+  margin-bottom: .5rem;
+}
+
+.tabMenu > button {
+  flex: 1;
+  width: 2rem;
+  border-radius: 0 .5rem .5rem 0;
+  background-color: var(--purp_dark);
+}
+
+.tabMenu > button.active {
+  background-color: var(--purp_med);
+}
+
+.tabMenu > button > img {
+  width: 100%;
+  opacity: 0.5;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.rightPanel{
   flex: 1;
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 /* ----------------------------------------------------------------------------------- */
-
-.listSelector {
-  width: max-content;
-  margin: auto;
-  display: flex;
-}
-
-.listSelector > *:not(:last-child) {
-  margin-right: .5rem;
-}
-
-.listSelector button {
-  width: .5rem;
-  height: .5rem;
-  padding: 0;
-  border: none;
-  border-radius: 100%;
-  background-color: var(--purp_med);
-}
-
-.listSelector button.activeList {
-  background-color: var(--yell);
-}
-
-/* ----------------------------------------------------------------------------------- */
-
-.listHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.listHeader > h1 {
-  margin-left: .5rem;
-  font-family: var(--title_sans);
-  color: var(--yell);
-  text-shadow: -.2rem .2rem 0 var(--purp_med);
-}
-
-/* ----------------------------------------------------------------------------------- */
-
-.books {
-  padding: 1rem 2rem;
-  overflow-y: auto;
-  flex: 1;
-}
-
-.books > * {
-  margin-bottom: .5rem;
-}
-
-.books button {
-  min-height: var(--heft); 
-  width: 100%;
-  padding: .5rem 1rem;
-  display: flex;
-  justify-content: space-between;
-
-  color: inherit;
-
-  border-radius: 1rem .2rem .2rem .2rem;
-  background-color: var(--purp_dark);
-  transition: transform ease-out 100ms;
-}
-
-.books button:after {
-  content: '';
-  display: block;
-  flex: 1;
-  max-width: 40%;
-  min-width: 1rem;
-  margin-left: 2rem;
-  margin-right: -1rem; /* Size of the padding of button. */
-
-  border-radius: .7rem 0 0 .2rem;
-  background-color: var(--very_dark);
-}
-
-.books button.selected {
-  transform: translateX(-2rem);
-  background-color: var(--purp_med);
-}
-
-.spine > * {
-  margin: 0;
-  margin-right: auto;
-  text-align: left;
-}
-
-.spine > p {
-  opacity: 0.7;
-}
-
-.empty {
-  text-align: center;
-  color: var(--purp_light);
-  font-style: italic;
-}
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -194,4 +149,9 @@
   0% { transform: scale(.1, .1); }
   50% { transform: scale(1, .1); }
   100% { transform: scale(1, 1); }
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(1rem); }
+  to { transform: translateX(0rem); }
 }
