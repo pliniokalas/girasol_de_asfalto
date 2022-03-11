@@ -1,0 +1,61 @@
+.beadsMenu {
+  width: max-content;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.beadsMenu > *:not(:last-child) {
+  margin-right: .5rem;
+}
+
+.beadsMenu button {
+  width: .7rem;
+  height: .7rem;
+  padding: 0;
+  border: none;
+  border-radius: 100%;
+  background-color: var(--purp_med);
+  transition: background-color cubic-bezier(.17,.84,.44,1) 500ms;
+  animation: slideFromRight ease-out 200ms both,
+    fadeIn ease 200ms both;
+  animation-delay: calc(var(--i) * 100ms);
+}
+
+.beadsMenu button.active {
+  background-color: var(--yell);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.scroll {
+  height: 1.5rem;
+  width: 1.5rem;
+  
+  background-color: transparent;
+}
+
+.scroll > svg {
+  height: 100%; 
+  width: 100%;
+}
+
+.scroll > svg > path {
+  fill: var(--purp_med);
+}
+
+.right {
+  transform: rotate(180deg);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideFromRight {
+  from { transform: translateX(1rem); }
+  to { transform: translateX(0rem); }
+}
