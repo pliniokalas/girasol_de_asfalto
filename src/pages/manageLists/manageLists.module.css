@@ -49,34 +49,6 @@
 
 /* ----------------------------------------------------------------------------------- */
 
-.listSelector {
-  display: flex;
-  justify-content: center;
-}
-
-.listSelector > *:not(:last-child) {
-  margin-right: .5rem;
-}
-
-.listSelector button {
-  width: .7rem;
-  height: .7rem;
-  padding: 0;
-  border: none;
-  border-radius: 100%;
-  background-color: var(--purp_med);
-  transition: background-color cubic-bezier(.17,.84,.44,1) 500ms;
-  animation: slideFromRight ease-out 200ms both,
-    fadeIn ease 200ms both;
-  animation-delay: calc(var(--i) * 100ms);
-}
-
-.listSelector button.activeList {
-  background-color: var(--yell);
-}
-
-/* ----------------------------------------------------------------------------------- */
-
 .listHeader {
   display: flex;
   flex-direction: column;
@@ -111,8 +83,7 @@
 /* ----------------------------------------------------------------------------------- */
 
 .books {
-  max-width: 70%;
-  flex: 1;
+  max-width: 700px;
   margin: auto;
   padding: 1rem 2rem;
   overflow-y: auto;
@@ -140,7 +111,7 @@
   content: '';
   display: block;
   flex: 1;
-  max-width: 40%;
+  max-width: min(40%, calc(var(--heft) * 0.5));
   min-width: 1rem;
   margin-left: 2rem;
   margin-right: -1rem; /* Size of the padding of button. */

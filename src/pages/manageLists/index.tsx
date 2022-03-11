@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import axios from 'utils/axios';
 import { useSession } from 'utils/useSession';
 import { IUser, IList, IBook } from 'utils/interfaces';
+import Beads from 'components/beads';
 import { ReactComponent as XIcon } from 'assets/x.svg';
 import { ReactComponent as PlusIcon } from 'assets/plus.svg';
 import styles from './manageLists.module.css';
@@ -106,18 +107,11 @@ function ManageLists() {
         </button>
       </menu>
 
-      <ul className={styles.listSelector}>
-        {(list._id === 'new' ? [...user.lists, list] : user.lists).map((l: IList, i: number) => (
-          <li key={l._id}>
-            <button
-              onClick={() => handleSelectList(l)}
-              className={list._id === l._id ? styles.activeList : ''}
-              style={{ '--i': i.toString() } as React.CSSProperties}
-            >
-            </button>
-          </li> ))
-        }
-      </ul>
+      <Beads
+        items={list._id === 'new' ? [...user.lists, list] : user.lists}
+        active={list}
+        select={handleSelectList}
+      />
 
       <header className={styles.listHeader}>
         <label htmlFor='title'>List name</label>
