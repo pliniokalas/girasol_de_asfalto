@@ -20,15 +20,16 @@ interface IGBook {
   }
 }
 
+interface IHistory {
+  startDate: Date,
+  endDate?: Date,
+  pagesRead: number,
+}
+
 interface IBook extends IGBook {
   _id: string;
   stats: {
-    progress: number;
-    history: {
-      startDate: Date,
-      endDate: Date,
-      progress: number,
-    }[];
+    history: IHistory[];
   }
 }
 
@@ -47,4 +48,4 @@ interface IUser {
   books: IBook[];
 }
 
-export type { IGBook, IBook, IList, IUser };
+export type { IGBook, IBook, IHistory as IReading, IList, IUser };

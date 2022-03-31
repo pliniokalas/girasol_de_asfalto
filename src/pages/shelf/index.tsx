@@ -50,7 +50,7 @@ function Shelf() {
       <section className={styles.leftPanel}>
         <article className={styles.dossier}>
           {cover 
-            && <header>
+            && <header className={styles.title}>
               <h3>{cover.volumeInfo.title}</h3>
               <p>{cover.volumeInfo.authors?.join(', ')}</p>
             </header>
@@ -76,7 +76,7 @@ function Shelf() {
           }
 
           {cover && (tab === TABS.stats)
-              && <Stats />
+              && <Stats cover={cover} />
           }
         </article>
 

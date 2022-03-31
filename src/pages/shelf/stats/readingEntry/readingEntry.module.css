@@ -1,0 +1,207 @@
+details {
+  display: flex;
+}
+
+details > * {
+  margin: 0;
+}
+
+details[open] > *:not(:last-child) {
+  margin-bottom: .5rem;
+}
+
+summary { 
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+/* chevron */
+summary > img {
+  height: 1.5rem;
+  aspect-ratio: 1/1;
+  transform: rotate(-90deg);
+  transition: transform ease-out 200ms;
+}
+
+details[open] > summary > img {
+  transform: rotate(90deg);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+details em, .prog {
+  color: var(--yell_dark);
+  font-style: inherit;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.dateInput {
+  display: flex;
+  align-items: center;
+}
+
+.dateInput > input {
+  padding: .5rem;
+  margin-left: 1rem;
+  border: 1px solid var(--purp_light);
+  border-radius: .5rem;
+  background-color: transparent;
+  color: var(--clear_purp);
+  color-scheme: dark; /* makes chrome/edge date icon white */
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+input[type='range'] {
+  -webkit-appearance: none;
+
+  width: 100%;
+  background: transparent;
+
+  --thumb_d: 1.5rem;
+  --track_h: .5rem;
+}
+
+/* THUMB| Moz ONLY (see chrome version bellow) */
+input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+
+  height: var(--thumb_d); 
+  width: var(--thumb_d);
+  border: none;
+  border-radius: 50%;
+  background: var(--yell_dark); 
+}
+
+/* THUMB| Chrome ONLY */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+
+  /* -thumb_diameter/2 + track_height/2
+   *  Centers the Thumb in the track.
+   * */
+  margin-top: calc((var(--thumb_d) * -.5) + (.5rem * .5));
+
+  height: var(--thumb_d);
+  width: var(--thumb_d);
+  border: none;
+  border-radius: 50%;
+  background: var(--yell_dark); 
+}
+
+/* TRACK | Moz ONLY */
+input[type='range']::-moz-range-track {
+  -webkit-appearance: none;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+
+  height: var(--track_h);
+  width: 100%; 
+  border: none;
+  border-radius: var(--track_h); 
+  background: var(--purp_light);
+}
+
+/* TRACK | Chrome ONLY */
+input[type='range']::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+
+  /* Chrome does not have a progress element in its slider.
+   * This simulates it with a background.
+   * */
+  --range: calc(var(--max) - var(--min));
+  --ratio: calc((var(--val) - var(--min))/var(--range));
+  --sx: calc(.5 * var(--thumb_d) + var(--ratio) * (100% - var(--thumb_d)));
+
+  height: var(--track_h); 
+  width: 100%; 
+  border: none;
+  border-radius: var(--track_h);
+  background: linear-gradient(var(--yell_dark), var(--yell_dark)) 0/ var(--sx) 100% no-repeat var(--purp_light);
+}
+
+/* PROGRESS | Moz ONLY */
+input[type='range']::-moz-range-progress {
+  height: .5rem;
+  width: 100%; 
+  border-radius: var(--track_h);
+  background-color: var(--yell_dark);
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+menu {
+  display: flex;
+}
+
+menu > *:not(:last-child) {
+  margin-right: .5rem;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.removeBtn {
+  display: flex;
+  align-items: center;
+  padding: .3rem;
+
+  color: inherit; 
+  background-color: transparent;
+  border: 1px solid var(--purp_light);
+  border-radius: .3rem;
+}
+
+.removeBtn > svg {
+  height: 1rem;
+  width: 1rem;
+  margin-left: .5rem;
+}
+
+.removeBtn > svg > path {
+  fill: currentColor;
+}
+
+.removeBtn:is(:hover, :focus, :focus-visible) {
+  background-color: var(--ketchup); 
+  border-color: var(--ketchup);
+  color: white;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.saveBtn {
+  padding: .3rem 1rem;
+  outline: 2px solid var(--yell_dark);
+  outline-offset: -2px;
+  border-radius: .3rem;
+  color: var(--very_dark);
+  background-color: var(--yell);
+  animation: pulseShadow linear 500ms alternate infinite;
+}
+
+.saveBtn:is(:hover, :focus, :focus-visible) {
+  animation-play-state: paused;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+@keyframes pulseShadow {
+  from { 
+    transform: translate(0, 0);
+    filter: drop-shadow(0 0 0 var(--yell_dark));
+  }
+  to {
+    transform: translate(0, -.3rem);
+    filter: drop-shadow(0 .3rem 0 var(--yell_dark));
+  }
+}
+
+
