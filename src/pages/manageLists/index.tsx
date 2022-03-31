@@ -130,7 +130,7 @@ function ManageLists() {
             <button
               onClick={() => handleToggleBook(book)}
               className={list.books.includes(book._id) ? styles.selected : ''}
-              style={{ '--heft': (book.volumeInfo?.pageCount || 10)/10} as React.CSSProperties}
+              style={{ '--heft': `${(book.volumeInfo?.pageCount || 10)/100}rem`} as React.CSSProperties}
             >
               <div className={styles.spine}>
                 <h1>{book.volumeInfo.title}</h1>

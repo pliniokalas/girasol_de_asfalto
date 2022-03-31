@@ -26,11 +26,17 @@
   --xFrom: 2.5rem; /* -lMargin + .5rem translate from */
   --xTo: 3rem; /* xFrom + .5rem translate to */
 
+  color: var(--purp_light);
   opacity: 0;
   margin-left: var(--lMargin);
   transform: translateX(var(--xFrom));
   transition: opacity ease 100ms, transform ease-out 150ms;
   transition-delay: 200ms;
+}
+
+.listConfig:is(:hover, :focus, :focus-visible) {
+  color: var(--clear_purp);
+  --background: var(--purp_med);
 }
 
 .listConfig > * {
@@ -39,7 +45,7 @@
 }
 
 .listConfig > svg > path {
-  fill: var(--purp_light);
+  fill: currentColor; 
 }
 
 /* ----------------------------------------------------------------------------------- */

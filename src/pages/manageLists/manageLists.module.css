@@ -111,7 +111,7 @@
   content: '';
   display: block;
   flex: 1;
-  max-width: min(40%, calc(var(--heft) * 0.5));
+  max-width: calc(30% + var(--heft));
   min-width: 1rem;
   margin-left: 2rem;
   margin-right: -1rem; /* Size of the padding of button. */
@@ -123,6 +123,12 @@
 .books button.selected {
   transform: translateX(-2rem);
   background-color: var(--purp_med);
+}
+
+.spine {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .spine > * {
