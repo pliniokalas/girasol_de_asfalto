@@ -1,0 +1,48 @@
+.statHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.addReading {
+  --background: var(--purp_dark);
+  --shadow: transparent;
+
+  color: var(--purp_light);
+  margin-left: 1rem; 
+  transition: transform ease-out 150ms;
+}
+
+.addReading:hover {
+  transform: scale(1.1);
+  color: var(--clear_purp);
+}
+
+.addReading > * {
+  height: 100%;
+  width: 100%;
+}
+
+.addReading > svg > path {
+  fill: currentColor;
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.history {
+  width: 100%;
+}
+
+
+.history > li {
+  padding: .7rem;
+  margin-bottom: 1rem;
+
+  border: 1px solid var(--purp_light);
+  border-radius: 1rem;
+}
+
+/* ----------------------------------------------------------------------------------- */
+

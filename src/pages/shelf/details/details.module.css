@@ -1,0 +1,10 @@
+.description {
+  padding: .5rem 1rem;
+  color: var(--clear_purp);
+  overflow-y: auto;
+}
+
+.description > * {
+  margin: 0;
+}
+

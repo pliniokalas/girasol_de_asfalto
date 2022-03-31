@@ -1,0 +1,116 @@
+.listHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listHeader > h1 {
+  font-family: var(--title_sans);
+  color: var(--yell);
+  text-shadow: -.2rem .2rem 0 var(--purp_med);
+}
+
+.listHeader:is(:hover, :focus, :focus-visible) .listConfig {
+  opacity: 1;
+  transform: translateX(var(--xTo));
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.listConfig {
+  --background: var(--purp_dark);
+  --shadow: transparent;
+
+  /* For clarity's sake. */
+  --lMargin: -2rem; /* 2rem width */
+  --xFrom: 2.5rem; /* -lMargin + .5rem translate from */
+  --xTo: 3rem; /* xFrom + .5rem translate to */
+
+  color: var(--purp_light);
+  opacity: 0;
+  margin-left: var(--lMargin);
+  transform: translateX(var(--xFrom));
+  transition: opacity ease 100ms, transform ease-out 150ms;
+  transition-delay: 200ms;
+}
+
+.listConfig:is(:hover, :focus, :focus-visible) {
+  color: var(--clear_purp);
+  --background: var(--purp_med);
+}
+
+.listConfig > * {
+  height: 100%;
+  width: 100%;
+}
+
+.listConfig > svg > path {
+  fill: currentColor; 
+}
+
+/* ----------------------------------------------------------------------------------- */
+
+.books {
+  padding: 1rem 2rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.books > * {
+  margin-bottom: .5rem;
+}
+
+.books button {
+  min-height: var(--heft); 
+  width: 100%;
+  padding: .5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+
+  color: inherit;
+
+  border-radius: 1rem .2rem .2rem .2rem;
+  background-color: var(--purp_dark);
+  transition: transform ease-out 100ms;
+}
+
+.books button:after {
+  content: '';
+  display: block;
+  flex: 1;
+  max-width: calc(25% + var(--heft));
+  min-width: 1rem;
+  margin-left: 2rem;
+  margin-right: -1rem; /* Size of the padding of button. */
+
+  border-radius: .7rem 0 0 .2rem;
+  background-color: var(--very_dark);
+}
+
+.books button.selected {
+  transform: translateX(-2rem);
+  background-color: var(--purp_med);
+}
+
+.spine {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.spine > * {
+  margin: 0;
+  margin-right: auto;
+  text-align: left;
+}
+
+.spine > p {
+  opacity: 0.7;
+}
+
+.empty {
+  text-align: center;
+  color: var(--purp_light);
+  font-style: italic;
+}
+

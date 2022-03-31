@@ -111,7 +111,7 @@ function Search() {
                 <p>{r.volumeInfo.description}</p>
                 <br /> 
                 <p>
-                  {`Publisher: ${r.volumeInfo.publisher}\n`
+                  {`Publisher: ${r.volumeInfo.publisher || 'no data'}\n`
                     + `${r.volumeInfo.pageCount} pages\n`
                     + `Language: ${r.volumeInfo.language}`
                   }
